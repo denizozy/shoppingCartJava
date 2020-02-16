@@ -4,9 +4,9 @@ public class Coupon {
 
     private int amount;
     private int discount;
-    private String discountType;
+    private Discount discountType;
 
-    public Coupon(int amount, int discount, String discountType) {
+    public Coupon(int amount, int discount, Discount discountType) {
         this.amount = amount;
         this.discount = discount;
         this.discountType = discountType;
@@ -28,11 +28,20 @@ public class Coupon {
         this.discount = discount;
     }
 
-    public String getDiscountType() {
+    public Discount getDiscountType() {
         return discountType;
     }
 
-    public void setDiscountType(String discountType) {
+    public void setDiscountType(Discount discountType) {
         this.discountType = discountType;
+    }
+
+    public boolean isAplicableCoupon(double totalAmount) {
+
+        return totalAmount > this.getAmount();
+    }
+
+    public double calculateCouponDiscount() {
+        return this.discountType.calculateDiscount(amount, discount);
     }
 }

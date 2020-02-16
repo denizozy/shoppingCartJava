@@ -28,10 +28,10 @@ public class CartItem {
 
     @Override
     public String toString() {
-        return ("\nCategory Name: "+this.getProduct().getCategory().getCategoryTitle()+
-                "\n Product Name: "+this.getProduct().getProductTitle()+
-                "\n Quantity: "+ this.getQuantity() +
-                "\n Unit Price: "+this.getProduct().getProductPrice() +
-                "\n Total Price: "+ (this.getProduct().getProductPrice() * quantity));
+        return ("\nCategory Name: " + this.getProduct().getCategory().getCategoryTitle() +
+                "\n Product Name: " + this.getProduct().getProductTitle() +
+                "\n Quantity: " + this.getQuantity() +
+                "\n Unit Price: " + this.getProduct().getProductPrice() +
+                "\n Total Price: " + (this.getProduct().getProductPrice() * quantity));
     }
 }

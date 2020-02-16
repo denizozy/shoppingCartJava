@@ -1,6 +1,7 @@
 import models.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Example {
 
@@ -20,21 +21,27 @@ public class Example {
         cart.addItem(skirt,5);
         cart.addItem(almond,1);
 
-
-        Campaign campaign1 = new Campaign(food,10.0,3,"Rate");
-
-        Campaign campaign2 = new Campaign(clothing,10.0,4,"Amount");
-
-        Campaign campaign3 = new Campaign(clothing,20.0,7,"Amount");
-
-        Coupon coupon = new Coupon(100, 5,"Amount");
+        RateDiscount rate = new RateDiscount();
+        AmountDiscount amount = new AmountDiscount();
 
 
-        double discount1 = cart.calculateDiscount(campaign1);
-        double discount2 = cart.calculateDiscount(campaign2);
-        double discount3 = cart.calculateDiscount(campaign3);
+        Campaign campaign1 = new Campaign(food,10.0,3,rate);
 
-        cart.applyDiscounts(discount1,discount2,discount3);
+        Campaign campaign2 = new Campaign(clothing,10.0,4,amount);
+
+        Campaign campaign3 = new Campaign(clothing,20.0,7,amount);
+
+        Coupon coupon = new Coupon(100, 5,amount);
+
+        ArrayList<Campaign> campaigns = new ArrayList<>();
+        campaigns.add(campaign1);
+        campaigns.add(campaign2);
+        campaigns.add(campaign3);
+
+        double discount = cart.calculateDiscount(campaigns);
+
+        cart.applyDiscounts(discount);
+
         cart.applyCoupon(coupon);
 
         cart.calculateNumberOfDeliveries();

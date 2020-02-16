@@ -1,13 +1,15 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Campaign {
 
     private Category category;
     private double amount;
     private int numberOfItems;
-    private String discountType;
+    private Discount discountType;
 
-    public Campaign(Category category, double amount, int numberOfItems, String discountType) {
+    public Campaign(Category category, double amount, int numberOfItems, Discount discountType) {
         this.category = category;
         this.amount = amount;
         this.numberOfItems = numberOfItems;
@@ -38,11 +40,41 @@ public class Campaign {
         this.numberOfItems = numberOfItems;
     }
 
-    public String getDiscountType() {
+    public Discount getDiscountType() {
         return discountType;
     }
 
-    public void setDiscountType(String discountType) {
+    public void setDiscountType(Discount discountType) {
         this.discountType = discountType;
     }
+
+    public boolean isApplicableCampaign(ArrayList<CartItem> products) {
+        String categoryTitle = this.getCategory().getCategoryTitle();
+        int quantity = 0;
+        for (CartItem cartItem : products) {
+            Product product = cartItem.getProduct();
+            Category category = product.getCategory();
+            if (categoryTitle.equals(category.getCategoryTitle())) {
+                quantity = quantity + cartItem.getQuantity();
+            }
+        }
+        return quantity > this.getNumberOfItems();
+    }
+
+    public double calculateDiscount(ArrayList<CartItem> products) {
+        String categoryTitle = this.getCategory().getCategoryTitle();
+        int quantity = 0;
+        double totalAmountOfCategory = 0;
+        for (CartItem cartItem : products) {
+            Product product = cartItem.getProduct();
+            Category category = product.getCategory();
+            if (categoryTitle.equals(category.getCategoryTitle())) {
+                totalAmountOfCategory = totalAmountOfCategory + product.getProductPrice() * cartItem.getQuantity();
+                quantity = quantity + cartItem.getQuantity();
+            }
+        }
+
+        return this.getDiscountType().calculateDiscount(totalAmountOfCategory, this.getAmount());
+    }
+
 }

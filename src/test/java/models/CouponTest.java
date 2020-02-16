@@ -8,10 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class CouponTest {
 
     Coupon coupon;
+    Discount rate;
 
     @Before
     public void setup() {
-        coupon = new Coupon(100,5,"Rate");
+        rate = new RateDiscount();
+        coupon = new Coupon(100,5,rate);
     }
 
     @Test
@@ -43,13 +45,13 @@ class CouponTest {
     @Test
     void getDiscountType() {
         setup();
-        assertEquals("Rate",coupon.getDiscountType());
+        assertEquals(rate,coupon.getDiscountType());
     }
 
-    @Test
-    void setDiscountType() {
-        setup();
-        coupon.setDiscountType("Amount");
-        assertEquals("Amount",coupon.getDiscountType());
-    }
+    //@Test
+    //void setDiscountType() {
+        //setup();
+        //coupon.setDiscountType("Amount");
+        //assertEquals("Amount",coupon.getDiscountType());
+    //}
 }

@@ -9,11 +9,13 @@ class CampaignTest {
 
     Category category;
     Campaign campaign;
+    Discount rate;
 
     @Before
     public void setup() {
         category = new Category("food");
-        campaign = new Campaign(category, 20.0, 5,"Rate");
+        rate = new RateDiscount();
+        campaign = new Campaign(category, 20.0, 5,rate);
     }
 
 
@@ -60,13 +62,13 @@ class CampaignTest {
     @Test
     void getDiscountType() {
         setup();
-        assertEquals("Rate",campaign.getDiscountType());
+        assertEquals(rate,campaign.getDiscountType());
     }
 
     @Test
     void setDiscountType() {
         setup();
-        campaign.setDiscountType("Amount");
-        assertEquals("Amount",campaign.getDiscountType());
+        campaign.setDiscountType(rate);
+        assertEquals(rate,campaign.getDiscountType());
     }
 }
