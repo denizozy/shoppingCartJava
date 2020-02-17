@@ -36,7 +36,7 @@ public class Coupon {
         this.discountType = discountType;
     }
 
-    public boolean isAplicableCoupon(double totalAmount) {
+    public boolean isApplicableCoupon(double totalAmount) {
 
         return totalAmount > this.getAmount();
     }

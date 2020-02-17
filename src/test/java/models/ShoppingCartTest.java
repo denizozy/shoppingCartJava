@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ShoppingCartTest {
 
@@ -49,6 +50,13 @@ class ShoppingCartTest {
         setup();
         cart.addItem(apple, 2);
         assertNotNull(cart.products);
+    }
+
+    @Test
+    void calculateDiscount() {
+        setup();
+        cart.addItem(apple, 4);
+        assertEquals(4.2, cart.calculateDiscount(campaigns));
     }
 
     @Test

@@ -1,5 +1,7 @@
 package models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,11 +9,10 @@ import java.util.stream.Collectors;
 
 public class ShoppingCart {
 
+    ArrayList<CartItem> products = new ArrayList<>();
     private double totalAmount = 0;
     private double campaignDiscount = 0;
     private double couponDiscount = 0;
-
-    ArrayList<CartItem> products = new ArrayList<>();
 
     public void addItem(Product product, int quantity) {
 
@@ -21,7 +22,7 @@ public class ShoppingCart {
 
     }
 
-    public double calculateDiscount(List<Campaign> campaigns) {
+    public double calculateDiscount(@NotNull List<Campaign> campaigns) {
 
         double[] discounts = new double[campaigns.size()];
 
@@ -48,10 +49,10 @@ public class ShoppingCart {
 
     }
 
-    public void applyCoupon(Coupon coupon) {
+    public void applyCoupon(@NotNull Coupon coupon) {
         couponDiscount = 0;
 
-        if (coupon.isAplicableCoupon(totalAmount)) {
+        if (coupon.isApplicableCoupon(totalAmount)) {
             couponDiscount = coupon.calculateCouponDiscount();
         }
         totalAmount = totalAmount - couponDiscount;

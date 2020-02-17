@@ -1,5 +1,7 @@
 package models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class Campaign {
@@ -48,7 +50,7 @@ public class Campaign {
         this.discountType = discountType;
     }
 
-    public boolean isApplicableCampaign(ArrayList<CartItem> products) {
+    public boolean isApplicableCampaign(@NotNull ArrayList<CartItem> products) {
         String categoryTitle = this.getCategory().getCategoryTitle();
         int quantity = 0;
         for (CartItem cartItem : products) {
@@ -61,7 +63,7 @@ public class Campaign {
         return quantity > this.getNumberOfItems();
     }
 
-    public double campaignDiscount(ArrayList<CartItem> products) {
+    public double campaignDiscount(@NotNull ArrayList<CartItem> products) {
         String categoryTitle = this.getCategory().getCategoryTitle();
         int quantity = 0;
         double totalAmountOfCategory = 0;
