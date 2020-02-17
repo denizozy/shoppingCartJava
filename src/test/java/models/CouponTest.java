@@ -9,10 +9,12 @@ class CouponTest {
 
     Coupon coupon;
     Discount rate;
+    Discount amount;
 
     @Before
     public void setup() {
         rate = new RateDiscount();
+        amount = new AmountDiscount();
         coupon = new Coupon(100,5,rate);
     }
 
@@ -48,10 +50,10 @@ class CouponTest {
         assertEquals(rate,coupon.getDiscountType());
     }
 
-    //@Test
-    //void setDiscountType() {
-        //setup();
-        //coupon.setDiscountType("Amount");
-        //assertEquals("Amount",coupon.getDiscountType());
-    //}
+    @Test
+    void setDiscountType() {
+        setup();
+        coupon.setDiscountType(amount);
+        assertEquals(amount,coupon.getDiscountType());
+    }
 }

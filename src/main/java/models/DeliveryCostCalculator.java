@@ -12,10 +12,7 @@ public class DeliveryCostCalculator {
 
         deliveryCost = (costPerDelivery * numberOfDeliveries) + (costPerProduct * numberOfProducts) + fixedCost;
 
-
-        deliveryCost = (double) Math.round(deliveryCost * 100000d) / 100000d;
-
-        return deliveryCost;
+        return (double) Math.round(deliveryCost * 100000d) / 100000d;
     }
 
 

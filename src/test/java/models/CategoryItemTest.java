@@ -13,8 +13,8 @@ class CategoryItemTest {
 
     @Before
     public void setup(){
-        String category = "food";
-        int quantity = 5;
+        category = "food";
+        quantity = 5;
         categoryItem = new CategoryItem("food",5);
     }
 

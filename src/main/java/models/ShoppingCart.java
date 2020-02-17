@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShoppingCart {
 
@@ -14,7 +15,6 @@ public class ShoppingCart {
 
     public void addItem(Product product, int quantity) {
 
-        //add items to shopping cart
         CartItem item = new CartItem(product, quantity);
         products.add(item);
         totalAmount = totalAmount + (product.getProductPrice() * quantity);
@@ -28,7 +28,7 @@ public class ShoppingCart {
         for (int i = 0; i < campaigns.size(); i++) {
             Campaign campaign = campaigns.get(i);
             if (campaign.isApplicableCampaign(products)) {
-                discounts[i] = campaign.calculateDiscount(products);
+                discounts[i] = campaign.campaignDiscount(products);
             } else {
                 discounts[i] = 0;
             }
@@ -72,7 +72,7 @@ public class ShoppingCart {
     }
 
     public int calculateNumberOfProducts() {
-        //number distinct products
+        //number of distinct products
         ArrayList<String> listOfProducts = new ArrayList<>();
 
         for (CartItem cartItem : products) {
@@ -84,15 +84,16 @@ public class ShoppingCart {
     }
 
     public double getTotalAmountAfterDiscounts() {
-        return totalAmount;
+
+        return (double) Math.round(totalAmount * 100000d) / 100000d;
     }
 
     public double getCouponDiscount() {
-        return couponDiscount;
+        return (double) Math.round(couponDiscount * 100000d) / 100000d;
     }
 
     public double getCampaignDiscount() {
-        return campaignDiscount;
+        return (double) Math.round(campaignDiscount * 100000d) / 100000d;
     }
 
     public double getDeliveryCost() {
@@ -103,20 +104,40 @@ public class ShoppingCart {
     }
 
     public void printProducts() {
-        System.out.println("-------------------------------------");
-        System.out.println("PRODUCTS");
-        System.out.println(products);
-        System.out.println("-------------------------------------");
+
+        ArrayList<String> listOfCategories = new ArrayList<>();
+
+        for (CartItem cartItem : products) {
+            Product product = cartItem.getProduct();
+            String category = product.getCategory().getCategoryTitle();
+            listOfCategories.add(category);
+        }
+
+        ArrayList uniqueList = (ArrayList) listOfCategories.stream().distinct().collect(Collectors.toList());
+
+        System.out.println("-----------------------------------------------");
+
+        for (Object o : uniqueList) {
+            System.out.println("Category Name: " + o + "\n");
+            for (CartItem product : products) {
+                if (product.getProduct().getCategory().getCategoryTitle().equals(o)) {
+                    System.out.println(product.toString());
+                }
+            }
+
+        }
     }
 
     public void print() {
 
-        System.out.println("Total Price of Shopping Cart: " + totalAmount);
-        System.out.println("Total Discount: " + (couponDiscount + campaignDiscount));
+        System.out.println("-----------------------------------------------");
+
+        System.out.println("Total Price of Shopping Cart: " + (double) Math.round(getTotalAmountAfterDiscounts() * 100000d) / 100000d);
+        System.out.println("Total Discount: " + (double) Math.round((getCouponDiscount() + getCampaignDiscount()) * 100000d) / 100000d);
         System.out.println();
 
-        System.out.println("Total Amount: " + (totalAmount + getDeliveryCost()));
-        System.out.println("Delivery Cost: " + getDeliveryCost());
+        System.out.println("Total Amount: " + (double) Math.round((getTotalAmountAfterDiscounts() + getDeliveryCost()) * 100000d) / 100000d);
+        System.out.println("Delivery Cost: " + (double) Math.round(getDeliveryCost() * 100000d) / 100000d);
 
     }
 }

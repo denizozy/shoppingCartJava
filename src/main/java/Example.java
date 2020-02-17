@@ -18,8 +18,9 @@ public class Example {
         ShoppingCart cart = new ShoppingCart();
 
         cart.addItem(apple,7);
-        cart.addItem(skirt,5);
+        cart.addItem(skirt,7);
         cart.addItem(almond,1);
+        cart.addItem(shirt,1);
 
         RateDiscount rate = new RateDiscount();
         AmountDiscount amount = new AmountDiscount();

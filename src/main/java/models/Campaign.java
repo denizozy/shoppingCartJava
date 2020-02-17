@@ -61,7 +61,7 @@ public class Campaign {
         return quantity > this.getNumberOfItems();
     }
 
-    public double calculateDiscount(ArrayList<CartItem> products) {
+    public double campaignDiscount(ArrayList<CartItem> products) {
         String categoryTitle = this.getCategory().getCategoryTitle();
         int quantity = 0;
         double totalAmountOfCategory = 0;
